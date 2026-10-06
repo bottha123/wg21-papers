@@ -20,7 +20,7 @@ You don't need to know every rule in the language. You don't need to have writte
 
 ### What This Notebook Is Not
 
-This isn't a textbook, a manual, or an encyclopedia. It's a notebook; it has a point of view. This one takes sides. It values stability more than novelty, and it prioritizes the people who use C++ over the people who design it. When evidence is thin, the notebook says so.
+This isn't a textbook, a manual, or an encyclopedia. It's a notebook; it has a point of view. This one takes sides. It values stability more than novelty, and it favors the people who use C++ over the people who design it. When evidence is thin, the notebook says so.
 
 ### What Each Chapter Covers
 
