@@ -15,6 +15,7 @@ Where a planning file disagrees with this one about voice or mechanics, this fil
 - A practical guide for newcomers. Dead simple, accumulative, builds like a pyramid.
 - Intimate. One experienced delegate talking to one newcomer, in the second person. It should read nothing like committee papers, standing documents, or reflector mail, which are long, formal, and bureaucratic. If a sentence would fit in an SD-4 revision, rewrite it.
 - Opinionated. It has a position: stability over innovation, users first, evidence over enthusiasm.
+- Approachable and a little fun. It moves. If a passage reads like a paper or a wall of text, cut it or rewrite it. Invented lore, like the Delegate's Oath, is on purpose: it sounds good and makes the job feel like something you can join.
 - Voiced by the Patron, an unnamed experienced delegate speaking straight to the reader. The Patron is never named in the text.
 
 ## What this book is not
@@ -22,7 +23,7 @@ Where a planning file disagrees with this one about voice or mechanics, this fil
 - Not institutional analysis. That is the job of `my-books/wg21-bible/`.
 - Not a reform manifesto. That is the job of the Reform Codex.
 - Not a textbook, manual, or encyclopedia.
-- It does not use coined terms from the Bible. No Consensus Ratchet, no Peerage, no Empty Seat, no Silence As Consensus.
+- It does not use coined terms from the Bible. No Consensus Ratchet, no Peerage, no Empty Seat, no Silence As Consensus. The one exception is the Bandwidth Gap (chapter 11), which stays.
 - It does not psychoanalyze the committee. Advice is addressed to the reader about their own judgment, in plain words, not jargon.
 
 ## Voice
@@ -45,9 +46,13 @@ The whole book is one person talking to you. Everything in this section protects
 
 - Contractions. Informal. Plain words.
 - Conclusion first in every section. State the destination, then build toward it.
-- Average sentence 15 words, hard cap 25. Paragraphs three sentences at most.
+- Vary the rhythm, because a person talking doesn't keep one beat. Most sentences run 8 to 16 words. Use a short one for punch and an occasional longer one that builds toward its point. Aim for an average near 11.
+- Past 25 words a sentence needs a reason. Past 35 it gets split. Never put more than three sentences under 10 words in a row, and never two over 25 in a row.
+- Paragraphs 55 words at most, however many sentences that takes.
+- `python lint.py` reports these numbers per chapter. It's a mirror, not a judge. Weigh each flag case by case, and never merge sentences just to move a number.
 - Starting a sentence with "And," "But," or "So" is fine. So is ending one on a preposition. Chicago agrees, so don't let an edit "fix" them.
 - Banned words: delve, tapestry, landscape, ecosystem, realm, robust, leverage, utilize, facilitate, navigate, streamline.
+- Audit every *door*, *carry*, and *reach*, in all forms: doors, doorway, carries, carried, carrying, reaches, reached, reaching. They're an AI tic, and `lint.py` flags every one. Keep one only when it's literal and nothing plainer fits. Otherwise say the plain thing: "has" for "carries," "find" or "get to" for "reach," "way in" for "door."
 - No committee-speak: "in order to," "with respect to," "it should be noted," "stakeholders." Watch for stacked nouns like "the responsibility of participation in the standardization committee." Say the plain thing.
 - A bridge sentence between sections is welcome when it adds something. Never write one that only restates the next heading.
 - End each chapter where `planning/emotional-arc.md` says the reader should land: a short closing paragraph in the Patron's voice, then a pointer to what comes next.
@@ -70,7 +75,7 @@ Mechanics follow *The Chicago Manual of Style* wherever this file is silent. Eve
 - Lowercase generic terms, even when committee documents capitalize them: national body, working draft, committee draft, global directory, mirror committee, study group, plenary, convener, chair, head of delegation.
 - Capitalize a title only directly before a name: "Convener Guy Davidson," but "the convener."
 - "The Delegate's Oath" is a proper name. After that, it's "the oath."
-- Coined labels for ideas stay lowercase: steel man, max-min solution, back-pocket alternative.
+- Coined labels for ideas stay lowercase: steel man, max-min solution, back-pocket alternative. The exception is the Bandwidth Gap, which is capitalized on purpose.
 
 ### Emphasis and terms
 
@@ -93,7 +98,7 @@ Mechanics follow *The Chicago Manual of Style* wherever this file is silent. Eve
 ### Abbreviations
 
 - Spell them out in prose and headings: "for example," "that is," "also known as," "versus." No "e.g.," "i.e.," "a.k.a.," or "vs."
-- Committee acronyms (EWG, NB, CD, DIS) are fine once defined in their owning chapter. See `planning/concept-manifest.md`.
+- Committee acronyms (EWG, NB, DIS) are fine once defined in their owning chapter. The book says "committee draft" in full, never CD. See `planning/concept-manifest.md`.
 
 ### Spelling
 
@@ -104,7 +109,8 @@ Mechanics follow *The Chicago Manual of Style* wherever this file is silent. Eve
 
 - Run short quotes into the sentence, so the Patron is the one telling the reader: SD-4 is blunt that "if a proposal doesn't have a paper, it doesn't exist."
 - Lowercase a quote's first letter when it runs into your sentence. Trim with an ellipsis (...) to keep only the point.
-- No block quotes, except the Delegate's Oath and the epigraph.
+- No block quotes, except the epigraph.
+- The book's two lore lines are Rule of Thumb boxes, not block quotes: the Delegate's Oath in chapter 1, and the four-line motto that closes the introduction ("Keep your wits about you. Be skeptical. Demand evidence. Put the users first."). See Boxes.
 
 ### Lists
 
@@ -120,14 +126,88 @@ Mechanics follow *The Chicago Manual of Style* wherever this file is silent. Eve
 
 - A blockquote with no quotation marks around the passage. The source line sits beneath it in the same blockquote, with the work's title in italics.
 
+## Boxes
+
+A box is a short aside set off from the running text. It's a breather, so it has to stay small, and it has to hit hard. No walls of text, no procedural arcana.
+
+- No box runs longer than half a printed page: 120 words at most, not counting the label line.
+- If the material needs more room, it isn't a box. Work it into the prose, keep only the one point that matters, or leave it in the residue.
+- Boxes follow every voice and mechanics rule in this file, including no semicolons.
+
+Every chapter opens with In This Chapter, a bullet list of the chapter's topics, right after the opening paragraph and before the first section. Every chapter ends with The Short Version, a prose summary right before the closing paragraph. It keeps the 55-word paragraph limit, so a longer summary splits into two or three paragraphs. Everything below is about the other boxes.
+
+### What earns a box
+
+A box earns its place only if it gives the reader one thing to take out of the chapter: a line to live by, a trap to dodge, or something to do today. It has to pass all five tests:
+
+1. Arc: it moves the reader toward the chapter's landing feeling in `planning/emotional-arc.md`, or it delivers the chapter's psychological note.
+2. About you: it's about the reader's own choices, feelings, or risks, not about how the institution works.
+3. One idea, few words: aim under 50 words. The 120-word cap is a ceiling, not a target.
+4. Stands alone: it makes sense to someone flipping pages who reads nothing else.
+5. Not a repeat: it says something the nearby prose doesn't, or the prose gives that line up to the box.
+
+Never a box: procedure (fees, thresholds, document numbers, who appoints whom), anything that dates, rulebook quotes that inform rather than move, tables, and stories over 120 words.
+
+Each type has its own job:
+
+- Rule of Thumb: a saying that steadies judgment. 40 words at most.
+- Watch Out: a specific trap and what it costs you. 50 words at most.
+- Try This Today: one small, free thing the reader can do today, with no membership. 50 words at most.
+- From One Delegate's Notebook: one true scene with a human stake and a choice. 120 words at most, and rare.
+- From the Rulebook: only when the quoted line itself hits hard, short and striking. Rare.
+
+A chapter gets one or two boxes beyond In This Chapter and The Short Version. A third is fine only in a long chapter where each box serves a different beat. Zero is fine too. No type shows up twice in one chapter, except payload boxes.
+
+### Where a box goes
+
+- Put the box where the reader needs it: right after the paragraph that raises its point, at a paragraph break, in the section it serves. Default to the end of that section.
+- Each type has a natural spot. A Watch Out goes right after the risky thing is described. A Try This Today goes once the reader knows enough to act. A Rule of Thumb goes at the end of the section it sums up. A Notebook story goes at the chapter's emotional peak.
+- Spread them out. At most one box per section, and never two boxes back to back. At least two paragraphs of prose between any two boxes, counting In This Chapter and The Short Version. Never a box inside the closing paragraphs.
+
+### Leading into and out of a box
+
+- The paragraph before finishes its own thought and creates the need for the box, without announcing it. No "here's a rule of thumb," no "see the box," no colon pointing at it.
+- The box adds, it doesn't echo. If the prose already makes the box's point in the same words, that line moves into the box and comes out of the prose.
+- The paragraph after picks up the thread from the paragraph before, as if the box weren't there. It never opens with "So," "That," "This," or "It" pointing into the box.
+- Two read-through tests: the chapter reads smoothly with every box skipped, and every box makes sense read alone.
+- Payload boxes are the exception. When the box is the content of a sentence, the lead-in introduces it with a colon and the next paragraph may comment on it. Only the book's own lore lines get this: the Delegate's Oath in chapter 1 and the four-line motto in the introduction. Both are Rule of Thumb boxes.
+
+### Boxes in the chapter file
+
+In the chapter file, a box is a `div` whose id names its type, with the tags on their own lines and blank lines inside them:
+
+```
+<div id="in-this-chapter">
+
+- Why standardization is a responsibility, not a hobby
+- How to read the standard without reading all of it
+
+</div>
+```
+
+- Each box type has an id in the `BOXES` table in `build.py`, which holds its label and colors. `build.py` prints the label from the id, so the box text has no label line. A new box type needs its own entry there.
+- A box holds plain paragraphs and bullets only. No headings, bold, blockquotes, numbered lists, or nested boxes.
+- The markdown won't render it as a box. The .docx will, as a shaded panel in the reviewers' style.
+- Don't italicize a defined term in a box, since the body does that where the term is defined. Keep the In This Chapter box free of named documents and sites. It comes before their first, linked mention, so describe the topic instead.
+
 ## Structure
 
 - `young-delegates-notebook.md` - the assembled manuscript. Generated. Do not edit by hand.
+- `young-delegates-notebook.docx` - the same manuscript as a Word document. Generated and gitignored.
 - `chapters/intro.md` - the introduction. Sets the voice for the whole book.
 - `chapters/ch-01.md` through `ch-13.md` - the thirteen chapters.
-- `build.py` - the assembler. Run `python build.py` from this directory to regenerate the manuscript and its table of contents.
+- `build.py` - the assembler. Run `python build.py` from this directory to regenerate the manuscript and its table of contents, in both formats. The docx look lives in one place, the `STYLES_XML` style sheet in `build.py`. The build stops on markdown the docx converter doesn't handle (tables, code fences, nested lists, bold, images, and any raw HTML other than box divs).
+- `lint.py` - the rhythm report. Run `python lint.py` for every chapter, or `python lint.py ch-01 ch-01.rev` for specific files.
 
 Edit chapter files. Rebuild. Never edit the assembled manuscript directly.
+
+## Working with the revisions
+
+The `.rev.md` files are reviewer input. Most of the reviewers and editors who wrote them never read this file, the emotional arc, or the concept manifest, so their changes are not gospel. Judge each one on its merits, case by case. Corrections of fact are the most reliable thing in them. New sections, long boxes, and walls of text are the least. Keep what makes the book more approachable, more emotional, and quicker to move through. Leave the rest in the residue.
+
+- The `.rev.md` and `.boxes.md` files are the reviewer's untrimmed originals, kept for reference.
+- Box text that isn't in a chapter yet lives in the `.boxes.md` files (see Boxes).
+- The book stays at thirteen chapters. The revision's two proposed new chapters were folded in: the national body essentials into chapter 2, and the ballot essentials into chapter 8. Their original text stays in `new-national-body.rev.md` and `new-ballot.rev.md`, not as chapters to build.
 
 ## Section numbering and cross-references
 
@@ -148,11 +228,13 @@ Edit chapter files. Rebuild. Never edit the assembled manuscript directly.
 
 ## The Delegate's Oath
 
-Exact wording, do not paraphrase:
+Exact wording, do not paraphrase. In chapter 1 it sits alone in a Rule of Thumb box:
 
-> I vow to do what is best for the language, to make no unnecessary proposals, and to put the needs of sixteen million users ahead of my own.
+I vow to do what is best for the language, to make no unnecessary proposals, and to put the needs of sixteen million users ahead of my own.
 
 The oath belongs to chapter 1. The introduction holds its spirit ("put the users first") but does not state the formal oath.
+
+The oath is the book's own invention, told as delegate lore: "Some delegates call it the Delegate's Oath." That's deliberate. Don't claim it as the committee's, and don't flag it as unsourced.
 
 ## Reform Codex boundaries
 

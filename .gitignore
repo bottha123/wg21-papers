@@ -7,6 +7,7 @@ node_modules/
 # Build artefacts
 mermaid-filter.err
 .mermaid-config.json
+books/young-delegates-notebook/young-delegates-notebook.docx
 
 .cache/
 .pytest_cache/
