@@ -93,19 +93,21 @@ Subheading order:
 - 3.1 Nothing Happens Without a Paper
 - 3.2 What a Paper Is and Its Types (design, wording, direction, experience reports, standing documents)
 - 3.3 The P-Number System (P, N, D; revisions R0 and up)
-- 3.4 wg21.link: Finding Any Paper
+- 3.4 Finding Any Paper (open-std.org, wg21.org, wg21.link)
 - 3.5 The Mailing System and Deadlines (papers arrive in batches; pre-meeting deadline weeks ahead)
 - 3.6 The Paper Lifecycle (idea to International Standard)
 - 3.7 Design Review vs Wording Review (and the handoff between them)
 - 3.8 Defect Reports and the Issues Lists (Core and Library Issues Lists)
 - 3.9 Reading a Paper Critically (what to look for, red flags, compare against the prior revision)
-- 3.10 The Documents Everyone Should Read: SD-4 and P0939
+- 3.10 The Documents Everyone Should Read: SD-4 and P2000
 
 Owns:
 - **paper** (§3.1) - a written proposal or report; the unit of all committee work.
 - **P-number / N-number / D-number** (§3.3) - a paper's ID: P is a numbered proposal, D is an unpublished draft, N is older or administrative.
 - **revision (R0, R1, ...)** (§3.3) - the version of a paper; R0 is first, higher is later.
-- **wg21.link** (§3.4) - the link shortener that resolves any paper, like wg21.link/p2300r10 (used and linked earlier; formal explanation here).
+- **open-std.org** (§3.4, shallow) - the official archive where every paper lives. Ch 4 deepens.
+- **wg21.org** (§3.4, shallow) - a friendlier, searchable view of the same papers. Ch 4 deepens.
+- **wg21.link** (§3.4) - an unofficial shortcut that redirects a paper number to its open-std.org copy, like wg21.link/p2300r10. Named, never linked.
 - **the mailing** (§3.5) - the batch of papers published before and after each meeting.
 - **pre-meeting mailing deadline** (§3.5) - the cutoff, weeks before a meeting, after which papers aren't actionable.
 - **the paper lifecycle** (§3.6) - the path a paper takes from idea to International Standard.
@@ -115,10 +117,10 @@ Owns:
 - **issues lists** (§3.8) - the Core Issues List and Library Issues List that track standard defects.
 - **standing document (SD)** (§3.2) - a numbered document holding the committee's own rules and practices.
 - **SD-4** (§3.10) - the standing document describing how WG21 works in practice; everyone is expected to know it.
-- **Direction Group / P0939** (§3.10, shallow) - the small group that sets direction, and its priorities paper P0939. Ch 5 deepens.
+- **Direction Group / P2000** (§3.10, shallow) - the small group that sets direction, and its direction paper P2000. Ch 5 deepens.
 
 Prerequisites: the standard, IS (§1.5, §1.6); WG21, plenary, subgroup (Ch 2).
-Links: wg21.link, SD-4 on isocpp.org, P0939, open-std.org.
+Links: open-std.org, wg21.org, SD-4 on isocpp.org, P2000.
 
 ---
 
@@ -141,8 +143,8 @@ Subheading order:
 Owns:
 - **the reflector** (§4.2) - the committee's email mailing lists, where most discussion happens between meetings.
 - **isocpp.org** (§4.3) - the public-facing C++ site, with standing documents and the committee page.
-- **open-std.org** (§4.3) - the official archive of papers and drafts.
-- **wg21.org** (§4.3) - the enhanced mailing and paper-discovery site.
+- **open-std.org** (§4.3, deep) - the official archive of papers and drafts (introduced in Ch 3).
+- **wg21.org** (§4.3, deep) - the enhanced mailing and paper-discovery site (introduced in Ch 3).
 - **the wiki** (§4.4) - the committee's internal hub for agendas, schedules, Zoom links, and poll pages.
 - **Mattermost** (§4.5) - the committee's real-time chat at chat.isocpp.org.
 - **std-proposals** (§4.6) - the public Google Group for floating an idea before writing a paper.
@@ -151,7 +153,7 @@ Owns:
 
 Prerequisites: paper, the mailing (Ch 3); subgroup, plenary (Ch 2).
 Note: "straw poll" appears here in plain words only ("quick online votes"). The formal definition is owned by §8.2.
-Links: isocpp.org, open-std.org, wg21.org, chat.isocpp.org, std-proposals group, #include C++ Discord, the Beman Project, wg21.link.
+Links: isocpp.org, open-std.org, wg21.org, chat.isocpp.org, std-proposals group, #include C++ Discord, the Beman Project. wg21.link is named, never linked.
 
 ---
 
@@ -185,11 +187,11 @@ Owns:
 - **convener** (§5.8, deep) - the officer who runs WG21: appoints chairs, creates study groups, sets the schedule (introduced in Ch 2).
 - **project editor** (§5.8) - the person who maintains the working draft text.
 - **chair** (§5.8) - the person who runs a room: sets its agenda, words its polls, and calls consensus.
-- **the Direction Group** (§5.9, deep) - the small senior group that sets priorities, publishing them in P0939 (introduced in Ch 3).
+- **the Direction Group** (§5.9, deep) - the small senior group that sets priorities. Long-term direction in P2000 (introduced in Ch 3), next-standard priorities in P5000.
 - **the implementer veto** (§5.12) - the reality that if GCC, Clang, and MSVC won't implement something, the standard can't force them.
 
 Prerequisites: convener, plenary, subgroup (Ch 2, restate with parenthetical); design review, wording review (Ch 3); IS (Ch 1).
-Links: isocpp.org, P0939, the LEWG GitHub wiki.
+Links: isocpp.org, P2000, P5000, the LEWG GitHub wiki.
 
 ---
 
@@ -293,7 +295,7 @@ Owns:
 - **feature-test macro** (§9.6) - a predefined symbol that lets code check whether a compiler supports a feature.
 - **shall / should** (§9.7) - standard-wording verbs: "shall" is a requirement, "should" is advice.
 
-Prerequisites: paper, design review, wording review, SD-4, P0939 (Ch 3); the standard, stable labels (Ch 1); consensus, design approval (Ch 8).
+Prerequisites: paper, design review, wording review, SD-4, P2000 (Ch 3); the standard, stable labels (Ch 1); consensus, design approval (Ch 8).
 Psychological note: be convinced by overwhelming evidence and nothing else. Go into your own paper skeptical.
 
 ---

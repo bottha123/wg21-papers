@@ -4,7 +4,7 @@
 
 A practical guide for anyone who wants to help shape C++ but has never set foot in a committee meeting. It accumulates: each chapter stands on the ones before it, and you can stop at any chapter and still have something useful to offer. Every paper number is a live link, and every named resource points somewhere real.
 
-*Assembled 2026-08-07*
+*Assembled 2026-10-05*
 
 ## Contents
 
@@ -39,13 +39,13 @@ A practical guide for anyone who wants to help shape C++ but has never set foot 
   - 3.1 Nothing Happens Without a Paper
   - 3.2 What a Paper Is and Its Types
   - 3.3 The P-Number System
-  - 3.4 wg21.link: Finding Any Paper
+  - 3.4 Finding Any Paper
   - 3.5 The Mailing System and Deadlines
   - 3.6 The Paper Lifecycle
   - 3.7 Design Review vs Wording Review
   - 3.8 Defect Reports and the Issues Lists
   - 3.9 Reading a Paper Critically
-  - 3.10 The Documents Everyone Should Read: SD-4 and P0939
+  - 3.10 The Documents Everyone Should Read: SD-4 and P2000
 - 4. How to Participate Remotely
   - 4.1 You Can Take Part From Your Desk
   - 4.2 The Reflector
@@ -152,63 +152,63 @@ A practical guide for anyone who wants to help shape C++ but has never set foot 
 
 ## Introduction
 
-> "I have not found among my possessions anything I hold more dear or esteem so highly as my knowledge of the actions of great men, learned through long experience of modern events and continual study of ancient ones - which, having thought about and examined with great diligence, I have now set down in this little book and send to Your Magnificence."
+> "I have not found among my possessions anything which I hold more dear than, or value so much as, the knowledge of the actions of great men, acquired by long experience in contemporary affairs, and a continual study of antiquity; which, having reflected upon it with great and prolonged diligence, I now send, digested into a little volume, to your Magnificence."
 >
 > Niccolò Machiavelli, dedicatory letter, [*The Prince*](https://www.gutenberg.org/ebooks/1232)
 
-I wrote this for you. Not for the experts who've sat in these rooms for twenty years. For you, the one who just found out that a group of volunteers decides what goes into C++, and wondered how to join them.
+I wrote this for you, not for the experts who've sat in these rooms for twenty years, but for *you*, the one who just found out that a group of volunteers decides what goes into C++ and wondered how to join them.
 
-Machiavelli gave a prince the one thing he valued most: what he'd learned watching powerful people up close. This notebook works the same way, smaller and plainer. It's the worn, marked-up notebook I wish someone had pressed into my hands before my first meeting.
+Machiavelli gave a prince the one thing he valued most: the knowledge he'd gained watching powerful people up close. This notebook works the same way but is smaller and plainer. It is the worn, marked-up notebook I wish someone had pressed into my hands before my first meeting.
 
 The group is real, and you can join it. It's called [WG21](https://isocpp.org/std/the-committee), and it's the committee that owns the C++ standard. Around 350 people show up, argue, vote, and ship a new version of the language about every three years.
 
-These are some of the most careful people you'll ever meet. They'll spend an hour on the placement of a single word. They do it because the stakes are high, and you'll come to understand why.
+These volunteers are some of the most careful people you'll ever meet. They'll spend an hour on the placement of a single word, because the stakes are high. You'll come to understand why.
 
 ### Who This Notebook Is For
 
-This is for the newcomer. Maybe you've never been to a meeting, or you've been to a few and still feel lost in the room. Either way, you're in the right place.
+This notebook is for the newcomer. Maybe you've never been to a meeting, or maybe you've been to a few and still feel lost in the room. Either way, this notebook will get you started.
 
-You don't need to know every rule in the language. You don't need to have written a compiler. You need curiosity and the patience to keep showing up.
+You don't need to know every rule in the language. You don't need to have written a compiler. You need only curiosity and the patience to keep showing up.
 
 ### What This Notebook Is Not
 
-This isn't a textbook. It isn't a manual or an encyclopedia. It's a notebook, and a notebook has a point of view.
-
-This one takes sides. It values stability over novelty, and it puts the people who use C++ ahead of the people who design it. When the evidence is thin, it says so.
+This isn't a textbook, a manual, or an encyclopedia. It's a notebook; it has a point of view. This one takes sides. It values stability more than novelty, and it prioritizes the people who use C++ over the people who design it. When evidence is thin, the notebook says so.
 
 ### What Each Chapter Covers
 
-The book moves in order, from "what is this thing?" to "how do I take part well?" Each line below is one chapter:
+The book moves, in order, from "what is this thing?" to "how do I participate well?" Each line below is one chapter.
 
 - Chapter 1 shows you why the standard matters and why every change you make is close to permanent.
-- Chapter 2 introduces the committee and the many doors you can walk in through.
-- Chapter 3 explains how papers work, because the paper is the unit of all the work.
-- Chapter 4 shows you how to take part from your desk, long before you ever travel.
+- Chapter 2 introduces the committee and the many ways you can participate.
+- Chapter 3 explains how papers function, because the paper is the unit of work.
+- Chapter 4 shows you how to participate from wherever you are.
 - Chapter 5 maps the rooms and groups, so you know who decides what.
 - Chapter 6 helps you plan, fund, and survive your first meeting.
 - Chapter 7 covers how to behave, speak, and find your footing once you're in the room.
-- Chapter 8 explains how decisions get made, and what a vote really means.
+- Chapter 8 explains how decisions get made and what a vote really means.
 - Chapter 9 lays out what a proposal must contain to earn the committee's time.
 - Chapter 10 walks through the tools, the format, and the deadlines for your own paper.
 - Chapter 11 covers the long work of building support and surviving feedback.
 - Chapter 12 names the deep design constraints that decide what can and can't ship.
-- Chapter 13 collects the common mistakes, so you can step around them.
+- Chapter 13 collects the common mistakes, so you don't make them.
 
 ### How to Read This Notebook
 
-Read this in order. Each chapter stands on the ones before it. By the end of any chapter, you could stop and still have something useful to offer.
+Read the chapters in order; each stands on the ones before it. By the end of any chapter, you could stop reading and still contribute to the committee.
 
-Follow the links. Every paper number points to its source through [wg21.link](https://wg21.link), and every named resource points somewhere real. When you want to go deeper, the path is right there in the text.
+Follow the links in this notebook: every paper number points to its official copy on [open-std.org](https://www.open-std.org/jtc1/sc22/wg21/), and every named resource points somewhere real. When you want to go deeper, the path is right there.
 
 ### Keep Your Wits About You
 
-One habit matters more than any fact in this notebook: stay skeptical. The committee runs on persuasion, and persuasion can carry you past your own judgment. Hold onto it.
+One practice matters more than any fact in this notebook: staying skeptical. The committee runs on persuasion, which can override your own judgment. Keep your skepticism and your judgment.
 
-Everything else is detail. Here's the whole notebook in four lines:
+Everything else is detail. Here's the whole notebook in four sentences:
 
 > Keep your wits about you. Be skeptical. Demand evidence. Put the users first.
 
-That's the notebook. Welcome. I'm glad you came.
+That's the notebook.
+
+Welcome. I'm glad you're here.
 
 ---
 
@@ -448,19 +448,19 @@ The revision tells you history, not quality. R0 is brand new and untested in the
 
 Once you have a number, the paper is one link away.
 
-### 3.4 wg21.link: Finding Any Paper
+### 3.4 Finding Any Paper
 
-You don't hunt for papers by hand. **wg21.link** turns any paper number into a link. Type the number after the slash, in lowercase, and it takes you there.
+Three sites will find you any paper, but only one is the real archive. That's [open-std.org](https://www.open-std.org/jtc1/sc22/wg21/), where every paper lives in a plain list by date. Every paper link in this notebook points there.
 
-The pattern stays the same every time. For P2300 revision 10, you write [wg21.link/p2300r10](https://wg21.link/p2300r10). A committee member has run this service for years.
+A friendlier view of the same papers is [wg21.org](https://wg21.org). It's searchable and sorted by group, and each entry links back to the original on open-std.org. Volunteers run it, so it's a window onto the archive, not the archive itself.
+
+The quickest route is wg21.link, an unofficial shortcut that a committee member has run for years. Type a paper number after the slash, in lowercase, and it sends you to the copy on open-std.org. For P2300 revision 10, that's `wg21.link/p2300r10`.
 
 Papers reach you in batches called mailings.
 
 ### 3.5 The Mailing System and Deadlines
 
 The committee publishes papers in batches called **the mailing**. A few times a year, hundreds of papers drop at once, before and after each meeting. The committee puts out 300 to 500 papers a year this way.
-
-Two sites hold the same papers. [open-std.org](https://www.open-std.org/jtc1/sc22/wg21/) is the official archive, a plain list in date order. [wg21.org](https://wg21.org) is a friendlier view, searchable and sorted by group.
 
 Timing decides what the committee can act on. Each meeting has a **pre-meeting mailing deadline**, weeks ahead of it. A paper that misses the deadline isn't actionable, so it waits for the next round.
 
@@ -519,11 +519,11 @@ The gaps are the red flags. Empty answers, like no implementation and no migrati
 
 Two documents will save you more than any single paper.
 
-### 3.10 The Documents Everyone Should Read: SD-4 and P0939
+### 3.10 The Documents Everyone Should Read: SD-4 and P2000
 
 Two documents are worth reading before almost anything else. **[SD-4](https://isocpp.org/std/standing-documents/sd-4-wg21-practices-and-procedures)** is the committee's own rulebook, the practices and procedures everyone is expected to know. It covers polls, consensus, deadlines, and the rules for guests.
 
-The other is **[P0939](https://wg21.link/p0939)**, the priorities paper. A small senior group called the **Direction Group** writes it to say what the committee should focus on. Reading it tells you which way the wind is blowing.
+The other is **[P2000](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2026/p2000r5.pdf)**, the direction paper. A small senior group called the **Direction Group** writes it to say where the committee should head over the long run. Reading it tells you which way the wind is blowing.
 
 Now you can find a paper, read it, and follow its climb. Everything so far works from your desk. The next chapter is about taking part.
 
@@ -641,7 +641,7 @@ Some papers touch more than one room. A feature that changes the language and th
 
 C++ ships on a fixed schedule, and that rule is **the train model**. Every three years a new standard leaves the station with whatever features are ready. C++11, 14, 17, 20, 23, and 26 all rode it.
 
-The idea came from Herb Sutter in 2011, written up in [P1000](https://wg21.link/p1000r6). Before it, releases slipped for years. The schedule traded "now or never" for "catch the next train."
+The idea came from Herb Sutter in 2011, written up in [P1000](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p1000r6.pdf). Before it, releases slipped for years. The schedule traded "now or never" for "catch the next train."
 
 The model has a safety valve: pull what isn't ready. The committee did exactly that with contracts, taking them out of C++20 to let them bake longer. The valve works, but pulling a big feature is never cheap.
 
@@ -661,7 +661,7 @@ Each room has its own small crew. A **chair** runs the session, and someone take
 
 ### 5.9 Who Sets Priorities: The Direction Group
 
-A small senior group steers the committee's focus. It's the Direction Group (introduced in §3.10), and it publishes its priorities in [P0939](https://wg21.link/p0939). Membership is by invitation, not election.
+A small senior group, the Direction Group (introduced in §3.10), steers the committee's focus. Its long-term direction lives in [P2000](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2026/p2000r5.pdf), and its priorities for the next standard live in [P5000](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2026/p5000r1.pdf). Membership is by invitation, not election.
 
 The Direction Group doesn't decide individual papers. It sets the big-picture priorities that chairs lean on when scheduling. Framing your work to match those priorities helps it get attention.
 
@@ -685,7 +685,7 @@ Here's the truth under all the structure: nobody can be ordered to do anything. 
 
 The compiler teams hold a quiet **implementer veto**. If GCC, Clang, and MSVC (the three implementers from §1.8) won't build a feature, the standard can't make them. So the standard can say one thing while your compiler does another.
 
-This isn't only theory. Eighteen implementers recently wrote [P3962](https://wg21.link/p3962r0) asking the committee to slow down, because features pile up faster than they can build them. The people who turn the standard real are stretched thin.
+This isn't only theory. Eighteen implementers recently wrote [P3962](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2026/p3962r0.pdf) asking the committee to slow down, because features pile up faster than they can build them. The people who turn the standard real are stretched thin.
 
 Now the acronyms have a shape: rooms that design, rooms that word, study groups that feed them, and officers who steer. You can see where a paper goes and who decides. Next, let's get you to an actual meeting.
 
@@ -803,7 +803,7 @@ One more habit will set you apart.
 
 ### 7.8 Get Out of Your Lane
 
-Spend some time in rooms outside your specialty. The committee's own [direction paper](https://wg21.link/p0939) encourages it. You'll build trust across groups and see how the whole machine fits together.
+Spend some time in rooms outside your specialty. The committee's own [direction paper](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2026/p2000r5.pdf) encourages it. You'll build trust across groups and see how the whole machine fits together.
 
 Two habits earn respect fast. Serve before you push: help onboard newcomers and explain procedure. And when someone says "that's just how it works," ask how other groups like IETF or W3C handle the same thing.
 
@@ -1073,7 +1073,7 @@ You can also champion someone else's paper. Carrying a good idea you didn't writ
 
 The first discussion of your paper is the scary one. The room asks "do we want this at all?" before it touches any detail. A no here kills the idea outright.
 
-Frame your opening as solving a problem the committee already cares about. Tie it to the [Direction Group](https://wg21.link/p0939) priorities from §5.9. A paper that matches the agenda gets heard. One that doesn't waits.
+Frame your opening as solving a problem the committee already cares about. Tie it to the [Direction Group](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2026/p5000r1.pdf) priorities from §5.9. A paper that matches the agenda gets heard. One that doesn't waits.
 
 Even a wanted paper will take fire.
 
@@ -1115,7 +1115,7 @@ Persistence does pay, though. **Procedural momentum** is the benefit a paper ear
 
 Set your clock to years, not months. The train runs every three years, and most features ride more than one. Patience isn't optional here. It's the job.
 
-The famous features all took ages. Coroutines, modules, and the executors work that became [std::execution](https://wg21.link/p2300) each ran many years and many revisions. Stackful coroutines have waited over a decade and still aren't in.
+The famous features all took ages. Coroutines, modules, and the executors work that became [std::execution](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p2300r10.html) each ran many years and many revisions. Stackful coroutines have waited over a decade and still aren't in.
 
 ### 11.10 The Structural Headwinds
 

@@ -44,7 +44,7 @@ The book moves, in order, from "what is this thing?" to "how do I participate we
 
 Read the chapters in order; each stands on the ones before it. By the end of any chapter, you could stop reading and still contribute to the committee.
 
-Follow the links in this notebook: Every paper number resolves through [wg21.link](https://wg21.link), and every named resource points somewhere real. When you want to go deeper, the path is right there.
+Follow the links in this notebook: every paper number points to its official copy on [open-std.org](https://www.open-std.org/jtc1/sc22/wg21/), and every named resource points somewhere real. When you want to go deeper, the path is right there.
 
 ### Keep Your Wits About You
 
