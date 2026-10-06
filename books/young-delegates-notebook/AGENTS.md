@@ -185,9 +185,9 @@ In the chapter file, a box is a `div` whose id names its type, with the tags on 
 </div>
 ```
 
-- Each box type has an id in the `BOXES` table in `build.py`, which holds its label and colors. `build.py` prints the label from the id, so the box text has no label line. A new box type needs its own entry there.
+- Each box type has an id in the `BOXES` table in `build.py`, which holds its label and colors. `build.py` prints the label from the id, so the box text has no label line. A new box type needs its own entry there, plus one under the same label in the `BOXES` table in `indesign/layout.jsx` for print.
 - A box holds plain paragraphs and bullets only. No headings, bold, blockquotes, numbered lists, or nested boxes.
-- The markdown won't render it as a box. The .docx will, as a shaded panel in the reviewers' style.
+- The markdown won't render it as a box. The .docx will, as a shaded panel in the reviewers' style, and so will the print edition, as a panel in the same colors as the .docx.
 - Don't italicize a defined term in a box, since the body does that where the term is defined. Keep the In This Chapter box free of named documents and sites. It comes before their first, linked mention, so describe the topic instead.
 
 ## Structure
@@ -196,10 +196,14 @@ In the chapter file, a box is a `div` whose id names its type, with the tags on 
 - `young-delegates-notebook.docx` - the same manuscript as a Word document. Generated and gitignored.
 - `chapters/intro.md` - the introduction. Sets the voice for the whole book.
 - `chapters/ch-01.md` through `ch-13.md` - the thirteen chapters.
-- `build.py` - the assembler. Run `python build.py` from this directory to regenerate the manuscript and its table of contents, in both formats. The docx look lives in one place, the `STYLES_XML` style sheet in `build.py`. The build stops on markdown the docx converter doesn't handle (tables, code fences, nested lists, bold, images, and any raw HTML other than box divs).
+- `build.py` - the assembler. Run `python build.py` from this directory to regenerate the manuscript and its table of contents, in both formats. The docx look lives in one place, the `STYLES_XML` style sheet in `build.py`. The build stops on markdown the docx converter doesn't handle (tables, code fences, nested lists, bold, images, and any raw HTML other than box divs). It also writes `indesign/title.icml` and `indesign/body.icml`, the print stories, with curly quotes and the other print-only fixes. They're generated and gitignored.
+- `indesign.py` - the print build. Run `python indesign.py` with InDesign closed to rebuild, then lay out the book in InDesign 2026 from scratch. It starts InDesign and quits it when done, unless documents are open. If InDesign is already open, it stops, because a crash there would lose unsaved work. Pass `--reuse` to run in that session anyway. It writes three files into `indesign/`: `young-delegates-notebook.indd`, `young-delegates-notebook-print.pdf` for the printer (no links), and `young-delegates-notebook.pdf` for screens (links and bookmarks). All three are generated and gitignored.
+- `indesign/layout.jsx` - the print layout. Trim size, margins, fonts, box colors, and every style live in the spec at the top. The style names must match the ICML names in `build.py`.
 - `lint.py` - the rhythm report. Run `python lint.py` for every chapter, or `python lint.py ch-01 ch-01.rev` for specific files.
 
 Edit chapter files. Rebuild. Never edit the assembled manuscript directly.
+
+The InDesign document is a build product like the docx. Never hand-edit it, because the next run replaces it. Change the print look in the spec in `layout.jsx`, then run `python indesign.py`.
 
 ## Working with the revisions
 

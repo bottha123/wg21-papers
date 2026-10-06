@@ -3,7 +3,9 @@
 
 Reads the chapters in fixed order, generates a table of contents from the
 chapter and section headings, and writes young-delegates-notebook.md and
-young-delegates-notebook.docx. Run from the book root:
+young-delegates-notebook.docx. It also writes indesign/title.icml and
+indesign/body.icml, the stories that indesign/layout.jsx lays out for print.
+Run from the book root:
 
     python build.py
 
@@ -16,6 +18,13 @@ The one HTML the converter does handle is a box: a `<div id="...">` line and a
 `</div>` line, each on its own, around plain paragraphs and bullets. The id
 names the box type in BOXES, and the box renders as a shaded panel under the
 type's label.
+
+The ICML stories carry text and style names only. Every look they get in
+InDesign comes from the spec at the top of indesign/layout.jsx, so the two
+files share the style names in ICML_PARAGRAPHS, ICML_CHARACTERS, and the box
+labels. The print text also gets curly quotes, initials that stay on one
+line, and a no-break space before each spaced hyphen so no line starts with
+one.
 
 Missing chapters are skipped with a warning, so the build works while the book
 is still being written.
@@ -34,6 +43,7 @@ ROOT = Path(__file__).resolve().parent
 CHAPTERS = ROOT / "chapters"
 OUTPUT = ROOT / "young-delegates-notebook.md"
 DOCX = ROOT / "young-delegates-notebook.docx"
+INDESIGN = ROOT / "indesign"
 
 TITLE = "A Young Delegate's Notebook"
 SUBTITLE = "A Newcomer's Path into WG21 and the Standardization of C++"
@@ -185,6 +195,31 @@ RUN_STYLES = {
     (True, False, True): "HyperlinkEmphasis",
     (False, True, True): "HyperlinkCode",
 }
+
+# docx paragraph style -> InDesign paragraph style. Body text, epigraphs, and
+# boxes pick their InDesign style from what comes before them instead.
+ICML_PARAGRAPHS = {
+    "Heading1": "Chapter Title",
+    "Heading2": "Section Heading",
+    "Heading3": "Subsection Heading",
+    "ListBullet": "Bullet",
+    "ListNumber": "Number",
+}
+
+# docx character style -> InDesign character style
+ICML_CHARACTERS = {
+    None: "$ID/[No character style]",
+    "Emphasis": "Emphasis",
+    "Code": "Code",
+    "Hyperlink": "Link",
+    "HyperlinkEmphasis": "Link Emphasis",
+    "HyperlinkCode": "Link Code",
+}
+
+ICML_HEAD = (
+    '<?aid style="50" type="snippet" readerVersion="6.0" featureSet="513" product="8.0(370)" ?>\n'
+    '<?aid SnippetType="InCopyInterchange"?>\n'
+)
 
 
 def unsupported(where: str, what: str) -> SystemExit:
@@ -460,6 +495,125 @@ def write_docx(chapters: list[tuple[str, str]], headings: list[tuple[int, str]],
             docx.writestr(info, XML_DECL + xml, zipfile.ZIP_DEFLATED)
 
 
+def print_runs(runs: list) -> list:
+    """Curl straight quotes, keep initials like "W. K." together, and tie each
+    spaced hyphen to the word before it, all outside code.
+
+    Both changes swap one character for one character, so the paragraph is
+    rewritten as a whole and cut back into the same runs. That lets a quote
+    see the character before it even when that character is in another run.
+    """
+    text = "".join(run[0] for run in runs)
+    code = [run[1] in ("Code", "HyperlinkCode") for run in runs for _ in run[0]]
+    out = list(text)
+    for i, c in enumerate(text):
+        if code[i]:
+            continue
+        opening = i == 0 or out[i - 1].isspace() or out[i - 1] in "([\u201c\u2018"
+        if c == '"':
+            out[i] = "\u201c" if opening else "\u201d"
+        elif c == "'":
+            out[i] = "\u2018" if opening else "\u2019"
+        elif c == " " and text.startswith("- ", i + 1):
+            out[i] = "\u00a0"
+        elif c == " " and re.match(r"[A-Z]\.", text[i + 1:i + 3]) and re.search(r"(^|\s)[A-Z]\.$", text[max(0, i - 3):i]):
+            out[i] = "\u00a0"
+    curled, start = [], 0
+    for run_text, style, url in runs:
+        curled.append(("".join(out[start:start + len(run_text)]), style, url))
+        start += len(run_text)
+    return curled
+
+
+def icml_paragraphs(chapters: list[tuple[str, str]]) -> list[tuple[str, list, str]]:
+    """Turn the chapters into (InDesign paragraph style, runs, extra attributes) paragraphs."""
+    paragraphs: list[tuple[str, list, str]] = []
+    for name, text in chapters:
+        previous, box = None, ""
+        for style, block, line, number in md_blocks(text, name):
+            where = f"{name}:{line}"
+            attrs = ""
+            if style == "BoxStart":
+                box = BOXES[block][0]
+                paragraphs.append((f"{box} Label", [(box, None, None)], ""))
+            elif style == "BoxEnd":
+                box = ""
+            elif box:
+                kind = "Bullet" if style == "BoxBullet" else "Text"
+                paragraphs.append((f"{box} {kind}", md_runs(block, where), ""))
+            else:
+                if style == "Normal" and previous == "Normal":
+                    para = "Body"
+                elif style == "Normal" and (previous is None or previous in HEADINGS.values()):
+                    para = "Body First"
+                elif style == "Normal" and previous == "BoxEnd":
+                    para = "Body After Box"
+                elif style == "Normal":
+                    para = "Body After Break"
+                elif style == "Quote":
+                    para = "Epigraph Source" if previous == "Quote" else "Epigraph"
+                else:
+                    para = ICML_PARAGRAPHS[style]
+                    if style == "ListNumber" and previous != "ListNumber":
+                        attrs = f' NumberingContinue="false" NumberingStartAt="{number}"'
+                paragraphs.append((para, md_runs(block, where), attrs))
+            previous = style
+    return paragraphs
+
+
+def write_icml(path: Path, paragraphs: list[tuple[str, list, str]]) -> None:
+    """Write one InCopy story that declares its styles by name only."""
+    def ref(kind: str, name: str) -> str:
+        return quoteattr(f"{kind}/{name}")
+
+    plain = ref("CharacterStyle", ICML_CHARACTERS[None])
+    destinations: dict[str, int] = {}
+    sources: list[int] = []
+    story: list[str] = []
+    for n, (style, runs, attrs) in enumerate(paragraphs):
+        xml = [f'<ParagraphStyleRange AppliedParagraphStyle={ref("ParagraphStyle", style)}{attrs}>']
+        for text, run_style, url in print_runs(runs):
+            content = f"<Content>{escape(text)}</Content>"
+            if url:
+                sources.append(destinations.setdefault(url, len(destinations) + 1))
+                src = f"ydn-src-{len(sources)}"
+                content = f'<HyperlinkTextSource Self="{src}" Name="{src}" Hidden="false">{content}</HyperlinkTextSource>'
+            xml.append(f'<CharacterStyleRange AppliedCharacterStyle={ref("CharacterStyle", ICML_CHARACTERS[run_style])}>{content}</CharacterStyleRange>')
+        if n < len(paragraphs) - 1:
+            xml.append(f"<CharacterStyleRange AppliedCharacterStyle={plain}><Br/></CharacterStyleRange>")
+        story.append("".join(xml) + "</ParagraphStyleRange>")
+
+    para_styles = ["$ID/[No paragraph style]"] + sorted({style for style, _, _ in paragraphs})
+    char_styles = list(ICML_CHARACTERS.values())
+    declared = (
+        '<RootCharacterStyleGroup Self="ydn-cs">'
+        + "".join(f'<CharacterStyle Self={ref("CharacterStyle", s)} Name={quoteattr(s)}/>' for s in char_styles)
+        + '</RootCharacterStyleGroup>\n<RootParagraphStyleGroup Self="ydn-ps">'
+        + "".join(f'<ParagraphStyle Self={ref("ParagraphStyle", s)} Name={quoteattr(s)}/>' for s in para_styles)
+        + "</RootParagraphStyleGroup>"
+    )
+    links = "".join(
+        f'<HyperlinkURLDestination Self="HyperlinkURLDestination/ydn-url-{key}" Name="ydn-url-{key}" '
+        f'DestinationURL={quoteattr(url)} DestinationUniqueKey="{key}" Hidden="false"/>\n'
+        for url, key in destinations.items()
+    ) + "".join(
+        f'<Hyperlink Self="ydn-link-{i}" Name="ydn-link-{i}" Source="ydn-src-{i}" Visible="false" '
+        f'Hidden="false" DestinationUniqueKey="{key}"><Properties>'
+        '<BorderColor type="enumeration">Black</BorderColor>'
+        f'<Destination type="object">HyperlinkURLDestination/ydn-url-{key}</Destination>'
+        "</Properties></Hyperlink>\n"
+        for i, key in enumerate(sources, 1)
+    )
+    path.parent.mkdir(exist_ok=True)
+    path.write_bytes((
+        XML_DECL + ICML_HEAD
+        + '<Document DOMVersion="8.0" Self="ydn">\n' + declared + "\n"
+        + '<Story Self="ydn-story" AppliedTOCStyle="n" TrackChanges="false" StoryTitle="$ID/" AppliedNamedGrid="n">\n'
+        + "\n".join(story)
+        + "\n</Story>\n" + links + "</Document>\n"
+    ).encode("utf-8"))
+
+
 def build() -> None:
     chapters: list[tuple[str, str]] = []
     headings: list[tuple[int, str]] = []
@@ -483,6 +637,9 @@ def build() -> None:
     print(f"wrote {OUTPUT.name}: {word_count} words across {len(chapters)} chapters")
     write_docx(chapters, headings, stamp)
     print(f"wrote {DOCX.name}")
+    write_icml(INDESIGN / "title.icml", [("Title", [(TITLE, None, None)], ""), ("Subtitle", [(SUBTITLE, None, None)], "")])
+    write_icml(INDESIGN / "body.icml", icml_paragraphs(chapters))
+    print(f"wrote {INDESIGN.name}/title.icml and {INDESIGN.name}/body.icml")
 
 
 if __name__ == "__main__":
