@@ -16,6 +16,7 @@ Where a planning file disagrees with this one about voice or mechanics, this fil
 - Intimate. One experienced delegate talking to one newcomer, in the second person. It should read nothing like committee papers, standing documents, or reflector mail, which are long, formal, and bureaucratic. If a sentence would fit in an SD-4 revision, rewrite it.
 - Opinionated. It has a position: stability over innovation, users first, evidence over enthusiasm.
 - Approachable and a little fun. It moves. If a passage reads like a paper or a wall of text, cut it or rewrite it. Invented lore, like the Delegate's Oath, is on purpose: it sounds good and makes the job feel like something you can join.
+- A little knowing. An insider aside about where the power sits, or how the agenda really gets set, is welcome. So is some political edge. Don't sand it off. The line is recruiting the reader into a faction, covered under Reform Codex boundaries.
 - Voiced by the Patron, an unnamed experienced delegate speaking straight to the reader. The Patron is never named in the text.
 
 ## What this book is not
@@ -33,7 +34,7 @@ The whole book is one person talking to you. Everything in this section protects
 ### Who is talking
 
 - The Patron is a patient colleague sitting next to the reader, not above the reader.
-- The Patron is one person and says "I." Never "we," which sounds like the committee or an editorial board. "Let's" is fine, because it means you and me.
+- The Patron is one person, and says "I" only in the introduction and in the closing paragraphs of the last chapter. Everywhere else the voice is second person: advice, judgments, and imperatives addressed to "you." Never "we," which sounds like the committee or an editorial board. "Let's" is fine, because it means you and me.
 - No other voices. Never mention reviewers, coauthors, or what "this notebook's" anyone thinks.
 
 ### Who is listening
@@ -41,11 +42,13 @@ The whole book is one person talking to you. Everything in this section protects
 - Address the reader as "you," always. Never "the newcomer," "participants," or "delegates" when you mean the reader.
 - Advice is about the reader's own judgment. Don't guess at why other people vote or act the way they do.
 - When the evidence is thin, say so. Never present an opinion as a fact about the committee.
+- Without "I," own an opinion in plain words: "often," "in practice," "nobody's counted, but," or a link to the source. A sharp judgment that's plainly the book's stance can stand as written.
 
 ### How it sounds
 
 - Contractions. Informal. Plain words.
 - Conclusion first in every section. State the destination, then build toward it.
+- Let feelings land through short scenes in the second person ("You raise your hand. Thirty heads turn.") rather than telling the reader how to feel.
 - Vary the rhythm, because a person talking doesn't keep one beat. Most sentences run 8 to 16 words. Use a short one for punch and an occasional longer one that builds toward its point. Aim for an average near 11.
 - Past 25 words a sentence needs a reason. Past 35 it gets split. Never put more than three sentences under 10 words in a row, and never two over 25 in a row.
 - Paragraphs 55 words at most, however many sentences that takes.
@@ -153,7 +156,7 @@ Each type has its own job:
 - Rule of Thumb: a saying that steadies judgment. 40 words at most.
 - Watch Out: a specific trap and what it costs you. 50 words at most.
 - Try This Today: one small, free thing the reader can do today, with no membership. 50 words at most.
-- From One Delegate's Notebook: one true scene with a human stake and a choice. 120 words at most, and rare.
+- From One Delegate's Notebook: one true scene with a human stake and a choice. 120 words at most, and rare. Only the author supplies these, since they must be true, so never invent one. Tell it about "a delegate," never "I."
 - From the Rulebook: only when the quoted line itself hits hard, short and striking. Rare.
 
 A chapter gets one or two boxes beyond In This Chapter and The Short Version. A third is fine only in a long chapter where each box serves a different beat. Zero is fine too. No type shows up twice in one chapter, except payload boxes.
