@@ -18,6 +18,11 @@ var OUTPUT = "young-delegates-notebook";
 // points, 72 to the inch: a 5.5 by 8.5 inch page
 var PAGE = {width: 396, height: 612, top: 45, bottom: 54, inside: 54, outside: 36};
 
+// the cover picture, in the same folder as the ICML files. It fills the first
+// page, cropped to the page's shape and centered, and the page behind it
+// stays blank. Leave the file out and the book has no cover.
+var COVER = {file: "cover.jpg"};
+
 // the folio's frame, measured down from the bottom of the text area
 var FOLIO = {gap: 14, height: 14};
 
@@ -377,35 +382,51 @@ function layout(src, out) {
     var indd = File(out + "/" + OUTPUT + ".indd");
     closeOpen(indd);
 
+    var cover = File(src + "/" + COVER.file);
+    if (!cover.exists) cover = null;
     var fonts = pickFonts();
     var doc = app.documents.add(false);
     try {
-        return typeset(doc, fonts, title, body, indd, out);
+        return typeset(doc, fonts, title, body, indd, out, cover);
     } finally {
         doc.close(SaveOptions.NO);
     }
 }
 
-function typeset(doc, fonts, title, body, indd, out) {
+// puts the cover picture on the first page, scaled to fill it and centered
+function placeCover(doc, file) {
+    var page = doc.pages[0], b = page.bounds;
+    var rect = page.rectangles.add({geometricBounds: b});
+    rect.strokeWeight = 0;
+    rect.place(file);
+    rect.fit(FitOptions.FILL_PROPORTIONALLY);
+    rect.fit(FitOptions.CENTER_CONTENT);
+}
+
+function typeset(doc, fonts, title, body, indd, out, cover) {
     doc.viewPreferences.horizontalMeasurementUnits = MeasurementUnits.POINTS;
     doc.viewPreferences.verticalMeasurementUnits = MeasurementUnits.POINTS;
     doc.marginPreferences.properties = {top: PAGE.top, bottom: PAGE.bottom, left: PAGE.inside, right: PAGE.outside};
     doc.documentPreferences.properties = {
-        pageWidth: PAGE.width, pageHeight: PAGE.height, facingPages: true, pagesPerDocument: 5
+        pageWidth: PAGE.width, pageHeight: PAGE.height, facingPages: true, pagesPerDocument: 5 + (cover ? 2 : 0)
     };
     makeStyles(doc, fonts);
     var master = makeMaster(doc), i;
     trace("styles and master made");
 
-    // title page, blank, contents, blank, then the body from page 1
-    for (i = 0; i < 4; i++) doc.pages[i].appliedMaster = NothingEnum.NOTHING;
-    doc.pages[4].appliedMaster = master;
+    // the cover and a blank page behind it when there is a cover, then the
+    // title page, blank, contents, blank, and the body from page 1. "lead" is
+    // the number of pages in front of the title page.
+    var lead = cover ? 2 : 0, front = lead + 4;
+    for (i = 0; i < front; i++) doc.pages[i].appliedMaster = NothingEnum.NOTHING;
+    doc.pages[front].appliedMaster = master;
     doc.sections[0].properties = {continueNumbering: false, pageNumberStart: 1, pageNumberStyle: PageNumberStyle.LOWER_ROMAN};
-    doc.sections.add(doc.pages[4], {continueNumbering: false, pageNumberStart: 1, pageNumberStyle: PageNumberStyle.ARABIC});
+    doc.sections.add(doc.pages[front], {continueNumbering: false, pageNumberStart: 1, pageNumberStyle: PageNumberStyle.ARABIC});
+    if (cover) placeCover(doc, cover);
 
-    var t = textBounds(doc.pages[0]);
-    doc.pages[0].textFrames.add({geometricBounds: [t[0] + 130, t[1], t[0] + 330, t[3]]}).place(title, false);
-    var frame = doc.pages[4].textFrames.add({geometricBounds: textBounds(doc.pages[4])});
+    var t = textBounds(doc.pages[lead]);
+    doc.pages[lead].textFrames.add({geometricBounds: [t[0] + 130, t[1], t[0] + 330, t[3]]}).place(title, false);
+    var frame = doc.pages[front].textFrames.add({geometricBounds: textBounds(doc.pages[front])});
     frame.place(body, false);
     trace("body placed");
     // a linked story is locked against edits, and the contents adds bookmarks to it
@@ -419,7 +440,7 @@ function typeset(doc, fonts, title, body, indd, out) {
     sinkChapters(doc, story, master);
     trace("chapters sunk");
 
-    for (i = 4; i < doc.pages.length; i++) {
+    for (i = front; i < doc.pages.length; i++) {
         var page = doc.pages[i];
         if (page.textFrames.length && page.textFrames[0].characters.length == 0) page.appliedMaster = NothingEnum.NOTHING;
     }
@@ -428,7 +449,7 @@ function typeset(doc, fonts, title, body, indd, out) {
         doc.pages[i].marginPreferences.properties = {top: PAGE.top, bottom: PAGE.bottom, left: PAGE.inside, right: PAGE.outside};
     }
 
-    var chapters = contents(doc, story, doc.pages[2]);
+    var chapters = contents(doc, story, doc.pages[lead + 2]);
     trace("contents made");
     checkStyles(doc);
     var used = doc.fonts.everyItem().getElements();
@@ -436,7 +457,7 @@ function typeset(doc, fonts, title, body, indd, out) {
         if (used[i].status != FontStatus.INSTALLED) problem("font not installed", used[i].name);
     }
 
-    var summary = doc.pages.length + " pages (" + (doc.pages.length - 4) + " body), " + chapters + " chapters, "
+    var summary = doc.pages.length + " pages (" + (doc.pages.length - front) + " body), " + chapters + " chapters, "
         + doc.hyperlinks.length + " hyperlinks, " + doc.bookmarks.length + " bookmarks";
     doc.save(indd);
     trace("saved");
