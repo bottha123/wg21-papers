@@ -14,7 +14,7 @@ Machiavelli gave a prince the one thing he valued most: what he'd learned watchi
 
 ### Who This Notebook Is For
 
-You belong here, wherever you're starting from. Maybe you've never been to a meeting, or maybe you've been to a few and still feel lost in the room. Everyone there was new once, even the people who run the place.
+You belong here, no matter where you're starting from. Maybe you've never been to a meeting, or maybe you've been to a few and still feel lost in the room. Everyone there was new once, even the people now in charge.
 
 You don't need to know every rule in C++. You don't need to have written a compiler. You need only curiosity and the patience to keep showing up.
 
